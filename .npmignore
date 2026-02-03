@@ -1,0 +1,21 @@
+# Source files
+src/
+*.test.ts
+
+# Config files
+tsconfig.json
+.env
+.env.example
+
+# Development
+node_modules/
+.git/
+.github/
+worker/
+
+# Testing
+coverage/
+
+# Misc
+.DS_Store
+*.log

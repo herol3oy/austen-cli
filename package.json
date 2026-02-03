@@ -1,5 +1,5 @@
 {
-  "name": "austen-cli",
+  "name": "austen",
   "version": "1.0.0",
   "description": "CLI tool to generate ASCII diagrams for book character relationships",
   "main": "dist/index.js",
@@ -7,25 +7,42 @@
     "austen": "./dist/index.js"
   },
   "engines": {
-    "node": "24.13.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "npm run test && tsup src/index.ts --format cjs --clean",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "test": "tsx --test 'src/**/*.test.ts'",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "cli",
     "mermaid",
     "books",
     "characters",
-    "diagrams"
+    "diagrams",
+    "ascii",
+    "ai",
+    "literature"
   ],
   "author": "Hamed Sedighi",
   "license": "MIT",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herol3oy/austen-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/herol3oy/austen-cli/issues"
+  },
+  "homepage": "https://github.com/herol3oy/austen-cli#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@types/node": "^25.2.0",
     "tsup": "^8.5.1",
