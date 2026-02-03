@@ -10,9 +10,10 @@
     "node": "24.13.0"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs --clean",
+    "build": "npm run test && tsup src/index.ts --format cjs --clean",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
+    "test": "tsx --test 'src/**/*.test.ts'",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

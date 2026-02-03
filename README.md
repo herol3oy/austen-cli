@@ -40,6 +40,20 @@ npm run build
 npm link
 ```
 
+## Development
+
+### Running Tests
+
+```bash
+npm t
+```
+
+### Building
+
+```bash
+npm run build
+```
+
 ## Usage
 
 ### Generate a diagram
