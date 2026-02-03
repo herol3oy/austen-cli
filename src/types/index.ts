@@ -3,17 +3,15 @@ export interface Book {
   title: string;
   author_name: string;
   firstPublishYear?: number;
-  description?: string;
 }
 
-export interface CharacterRelationship {
-  from: string;
-  to: string;
-  relationship: string;
+export interface OpenLibrarySearchDoc {
+  key: string;
+  title: string;
+  author_name: string[];
+  first_publish_year?: number;
 }
 
-export interface MermaidDiagram {
-  syntax: string;
-  theme?: string;
+export interface OpenLibrarySearchResponse {
+  docs: OpenLibrarySearchDoc[];
 }
-

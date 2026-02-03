@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Book } from '../types/index.js';
+import { Book, OpenLibrarySearchResponse } from '../types/index.js';
 
 const OPEN_LIBRARY_API = 'https://openlibrary.org';
 
@@ -10,14 +10,14 @@ export async function searchBooks(title: string): Promise<Book[]> {
 
   try {
     const url = `${OPEN_LIBRARY_API}/search.json?title=${encodeURIComponent(title)}`;
-    const response = await axios.get(url);
+    const response = await axios.get<OpenLibrarySearchResponse>(url);
 
     const docs = response.data.docs || [];
     
     return docs
-      .filter((doc: any) => doc.author_name && doc.author_name.length > 0)
+      .filter((doc) => doc.author_name && doc.author_name.length > 0)
       .slice(0, 5)
-      .map((doc: any) => ({
+      .map((doc) => ({
         key: doc.key,
         title: doc.title,
         author_name: doc.author_name[0],
@@ -33,18 +33,10 @@ export async function getBookDetails(bookKey: string): Promise<Book | null> {
     const response = await axios.get(`${OPEN_LIBRARY_API}${bookKey}.json`);
     const data = response.data;
 
-    let description = '';
-    if (typeof data.description === 'string') {
-      description = data.description;
-    } else if (typeof data.description === 'object' && data.description?.value) {
-      description = data.description.value;
-    }
-
     return {
       key: bookKey,
       title: data.title || 'Unknown Title',
       author_name: data.authors?.[0]?.name || 'Unknown Author',
-      description: description,
     };
   } catch (error) {
     console.error('Failed to fetch book details:', error);
