@@ -12,25 +12,6 @@ A CLI tool that uses AI to analyze books and create beautiful character relation
 - 📊 Generate Mermaid diagram syntax
 - 💻 Simple command-line interface
 
-
-## Installation
-
-### Global Installation
-
-```bash
-npm install -g austen-cli
-```
-
-### Local Development
-
-```bash
-git clone https://github.com/herol3oy/austen-cli
-cd austen-cli
-npm install
-npm run build
-npm link
-```
-
 ## Setup
 
 1. Copy the example environment file:
@@ -44,6 +25,22 @@ npm link
    ```
 
    Get your API key from [DeepSeek](https://platform.deepseek.com/)
+
+> When no `DEEPSEEK_API_KEY` is provided, the app prompts the user to generate a mock result.
+
+## Installation
+
+```bash
+git clone https://github.com/herol3oy/austen-cli
+
+cd austen-cli
+
+npm i
+
+npm run build
+
+npm link
+```
 
 ## Usage
 
@@ -100,21 +97,11 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 3. **Analyze**: Uses DeepSeek AI to analyze character relationships
 4. **Render**: Displays ASCII art diagram in your terminal
 
-## Development
-
-```bash
-# Run in development mode
-npm run dev generate "Book Title"
-
-# Build
-npm run build
-```
 
 ## Tech Stack
 
 - **TypeScript** - Type-safe development
 - **Commander.js** - CLI framework
-- **Axios** - HTTP client
 - **Inquirer** - Interactive prompts
 - **Ora** - Loading spinners
 - **Chalk** - Colored output
