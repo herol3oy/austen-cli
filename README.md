@@ -2,15 +2,13 @@
 
 > Generate ASCII diagrams for book character relationships from the command line
 
-A CLI tool that uses AI to analyze books and create beautiful character relationship diagrams using Mermaid syntax and ASCII art.
+A CLI tool that uses AI to analyze books and create character relationship diagrams using Mermaid syntax and ASCII art.
 
 ## Features
 
 - 🔍 Search any book from Open Library
 - 🤖 AI-powered character relationship analysis (DeepSeek)
 - 🎨 ASCII art diagram rendering in terminal
-- 📊 Generate Mermaid diagram syntax
-- 💻 Simple command-line interface
 
 ## Setup
 
@@ -48,6 +46,10 @@ npm link
 
 ```bash
 austen generate "Pride and Prejudice"
+
+austen generate Emma
+
+austen generate "The Art of Computer Programming"
 ```
 
 ### View help
@@ -64,7 +66,7 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 ```ASCII
 ┌─────────────┐            ┌─────────┐
 │             │            │         │
-│   Santiago  ├ACarestfor─►┤ Manolin │
+│   Santiago  ├Apprentice─►┤ Manolin │
 │             │            │         │
 └──────┬──────┘            └─────────┘
        │                              
@@ -75,12 +77,12 @@ The Old Man and the Sea by Ernest Hemingway (1952)
        │                   ┌─────────┐
        │                   │         │
        ├──────────────────►│  Marlin │
-  Adversaries              │         │
+       |                   │         │
        │                   └─────────┘
        │                              
        │                              
        │                              
-       │                              
+  Adversaries                              
        │                              
        │                   ┌─────────┐
        │                   │         │
@@ -105,7 +107,7 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 - **Inquirer** - Interactive prompts
 - **Ora** - Loading spinners
 - **Chalk** - Colored output
-- **Beautiful Mermaid** - ASCII diagram rendering
+- **Beautiful Mermaid** - Converting Mermaid syntax to ASCII
 - **OpenAI SDK** - DeepSeek API integration
 
 ## API Credits

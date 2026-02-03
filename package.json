@@ -1,7 +1,7 @@
 {
   "name": "austen-cli",
   "version": "1.0.0",
-  "description": "CLI tool to generate diagrams for book character relationships",
+  "description": "CLI tool to generate ASCII diagrams for book character relationships",
   "main": "dist/index.js",
   "bin": {
     "austen": "./dist/index.js"
