@@ -1,7 +1,19 @@
-import axios from 'axios';
 import { Book, OpenLibrarySearchResponse } from '../types/index.js';
 
 const OPEN_LIBRARY_API = 'https://openlibrary.org';
+
+async function fetcher<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '');
+    throw new Error(
+      `HTTP ${response.status} ${response.statusText}${text ? `: ${text}` : ''}`
+    );
+  }
+
+  return (await response.json()) as T;
+}
 
 export async function searchBooks(title: string): Promise<Book[]> {
   if (!title.trim()) {
@@ -10,10 +22,10 @@ export async function searchBooks(title: string): Promise<Book[]> {
 
   try {
     const url = `${OPEN_LIBRARY_API}/search.json?title=${encodeURIComponent(title)}`;
-    const response = await axios.get<OpenLibrarySearchResponse>(url);
+    const data = await fetcher<OpenLibrarySearchResponse>(url);
 
-    const docs = response.data.docs || [];
-    
+    const docs = data.docs || [];
+
     return docs
       .filter((doc) => doc.author_name && doc.author_name.length > 0)
       .slice(0, 5)
@@ -26,12 +38,11 @@ export async function searchBooks(title: string): Promise<Book[]> {
   } catch (error) {
     throw new Error(`Failed to search books: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-} 
+}
 
 export async function getBookDetails(bookKey: string): Promise<Book | null> {
   try {
-    const response = await axios.get(`${OPEN_LIBRARY_API}${bookKey}.json`);
-    const data = response.data;
+    const data = await fetcher<Record<string, any>>(`${OPEN_LIBRARY_API}${bookKey}.json`);
 
     return {
       key: bookKey,
