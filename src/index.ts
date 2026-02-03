@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { Command } from 'commander';
 import { generateCommand } from './commands/generate.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const program = new Command();
 
