@@ -10,6 +10,8 @@
 
 This CLI tool uses AI to analyze books and generate character relationship diagrams in ASCII art directly from the command line.
 
+<!-- <video src="https://github.com/herol3oy/austen-cli/raw//main/austen-cli-how-to-screen-capture.mp4" width="600" controls></video> -->
+<https://github.com/herol3oy/austen-cli/raw//main/austen-cli-how-to-screen-capture.mp4>
 ## Features
 
 - 🔍 Search any book from Open Library
