@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import inquirer from 'inquirer';
+import { select } from '@inquirer/prompts';
 import { renderMermaidAscii } from 'beautiful-mermaid';
 import { searchBooks } from '../api/openLibrary.js';
 import { analyzeCharacters } from '../api/deepseek.js';
@@ -25,17 +25,13 @@ export const generateCommand = new Command('generate')
       }
 
       // Let user select a book
-      const { selectedBook } = await inquirer.prompt([
-        {
-          type: 'rawlist',
-          name: 'selectedBook',
-          message: 'Select a book:',
-          choices: books.map((book) => ({
-            name: `${book.title} by ${book.author_name}${book.firstPublishYear ? ` (${book.firstPublishYear})` : ''}`,
-            value: book,
-          })),
-        },
-      ]);
+      const selectedBook = await select({
+        message: 'Select a book:',
+        choices: books.map((book) => ({
+          name: `${book.title} by ${book.author_name}${book.firstPublishYear ? ` (${book.firstPublishYear})` : ''}`,
+          value: book,
+        })),
+      });
 
       // Analyze characters with AI
       const apiKey = process.env.DEEPSEEK_API_KEY;
