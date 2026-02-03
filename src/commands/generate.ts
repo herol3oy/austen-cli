@@ -1,11 +1,14 @@
 import { Command } from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import { confirm, select } from '@inquirer/prompts';
+import { select } from '@inquirer/prompts';
 import { renderMermaidAscii } from 'beautiful-mermaid';
 import { searchBooks } from '../api/openLibrary.js';
-import { analyzeCharacters } from '../api/deepseek.js';
+import { analyzeCharactersFromWorker } from '../api/worker.js';
 import { displayLogo } from '../utils/logo.js';
+
+// Cloudflare Worker URL for character analysis
+const WORKER_URL = 'https://austen-cli-worker.potato0.workers.dev';
 
 export const generateCommand = new Command('generate')
   .description('Generate a Mermaid diagram for book character relationships')
@@ -33,32 +36,19 @@ export const generateCommand = new Command('generate')
         })),
       });
 
-      // Analyze characters with AI
-      const apiKey = process.env.DEEPSEEK_API_KEY;
-
+      // Analyze characters with AI using Cloudflare Worker
+      const analyzeSpinner = ora('Analyzing character relationships with AI...').start();
       let mermaidSyntax: string;
-      if (!apiKey) {
-        console.log(chalk.yellow("\n⚠️  You haven't provided DEEPSEEK_API_KEY."));
-        const shouldUseMock = await confirm({
-          message: 'Would you like me to show a sample result instead?',
-          default: true,
-        });
-
-        if (!shouldUseMock) return;
-
-        mermaidSyntax = `graph LR
-  A[Main Character] -->|Friend| B[Close Friend]
-  A -->|Family| C[Family Member]
-  A -->|Rival| D[Rival]
-  B -->|Knows| C`;
-      } else {
-        const analyzeSpinner = ora('Analyzing character relationships with AI...').start();
-        mermaidSyntax = await analyzeCharacters(
+      try {
+        mermaidSyntax = await analyzeCharactersFromWorker(
           selectedBook.title,
           selectedBook.author_name,
-          apiKey
+          WORKER_URL
         );
         analyzeSpinner.succeed('Analysis complete!');
+      } catch (error) {
+        analyzeSpinner.fail('Worker request failed');
+        throw error;
       }
 
       // Render ASCII diagram

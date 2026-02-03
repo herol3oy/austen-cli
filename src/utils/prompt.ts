@@ -19,7 +19,3 @@ graph LR
   E -->|Friends| F
   B -->|In Kansas| C
 `;
-
-export function buildPrompt(bookTitle: string, author: string): string {
-  return `Book: ${bookTitle}, Author: ${author}`;
-}

@@ -7,24 +7,8 @@ A CLI tool that uses AI to analyze books and create character relationship diagr
 ## Features
 
 - 🔍 Search any book from Open Library
-- 🤖 AI-powered character relationship analysis (DeepSeek)
+- 🤖 AI-powered character relationship analysis via Cloudflare Worker
 - 🎨 ASCII art diagram rendering in terminal
-
-## Setup
-
-1. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Add your DeepSeek API key to `.env`:
-   ```env
-   DEEPSEEK_API_KEY=your_api_key_here
-   ```
-
-   Get your API key from [DeepSeek](https://platform.deepseek.com/)
-
-> When no `DEEPSEEK_API_KEY` is provided, the app prompts the user to generate a mock result.
 
 ## Installation
 
@@ -110,7 +94,7 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 
 1. **Search**: Searches Open Library for books matching your query
 2. **Select**: Lets you choose from the top 5 search results
-3. **Analyze**: Uses DeepSeek AI to analyze character relationships
+3. **Analyze**: Uses DeepSeek AI via Cloudflare Worker to analyze character relationships
 4. **Render**: Displays ASCII art diagram in your terminal
 
 
@@ -122,12 +106,15 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 - **Ora** - Loading spinners
 - **Chalk** - Colored output
 - **Beautiful Mermaid** - Converting Mermaid syntax to ASCII
-- **OpenAI SDK** - DeepSeek API integration
+- **Cloudflare Workers** - Serverless AI endpoint (DeepSeek integration)
+
+> **Note**: The Cloudflare Worker is pre-deployed and hardcoded in the CLI for simplicity. No environment setup required!
 
 ## API Credits
 
 - [Open Library](https://openlibrary.org) - Book data
 - [DeepSeek](https://deepseek.com) - AI analysis
+- [Cloudflare Workers](https://workers.cloudflare.com) - Serverless platform
 
 
 ## Related Projects
