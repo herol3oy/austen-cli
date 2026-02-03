@@ -1,14 +1,51 @@
 # Austen CLI
 
-> Generate ASCII diagrams for book character relationships from the command line
+```
+ █████  ██    ██ ███████ ████████ ███████ ███    ██ 
+██   ██ ██    ██ ██         ██    ██      ████   ██ 
+███████ ██    ██ ███████    ██    █████   ██ ██  ██ 
+██   ██ ██    ██      ██    ██    ██      ██  ██ ██ 
+██   ██  ██████  ███████    ██    ███████ ██   ████
+```
 
-A CLI tool that uses AI to analyze books and create character relationship diagrams using Mermaid syntax and ASCII art.
+This CLI tool uses AI to analyze books and generate character relationship diagrams in ASCII art directly from the command line.
 
 ## Features
 
 - 🔍 Search any book from Open Library
 - 🤖 AI-powered character relationship analysis via Cloudflare Worker
 - 🎨 ASCII art diagram rendering in terminal
+
+
+## Usage
+
+### Quick Start
+
+```bash
+npx austen generate "Pride and Prejudice"
+```
+
+### Or install globally
+
+```bash
+npm install -g austen
+```
+
+### Generate a diagram
+
+```bash
+austen generate "The Art of Computer Programming"
+
+austen generate Misery
+
+```
+
+### View help
+
+```bash
+austen --help
+austen generate --help
+```
 
 ## Installation
 
@@ -22,6 +59,8 @@ npm i
 npm run build
 
 npm link
+
+austen generate Emma
 ```
 
 ## Development
@@ -38,24 +77,6 @@ npm t
 npm run build
 ```
 
-## Usage
-
-### Generate a diagram
-
-```bash
-austen generate "Pride and Prejudice"
-
-austen generate Emma
-
-austen generate "The Art of Computer Programming"
-```
-
-### View help
-
-```bash
-austen --help
-austen generate --help
-```
 
 ## Example Output
 

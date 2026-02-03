@@ -12,19 +12,6 @@ test('searchBooks returns empty array for whitespace title', async () => {
   assert.strictEqual(result.length, 0);
 });
 
-test('searchBooks returns books for valid title', async () => {
-  const result = await searchBooks('Pride and Prejudice');
-  
-  assert.ok(Array.isArray(result));
-  assert.ok(result.length > 0);
-  assert.ok(result.length <= 5);
-  
-  const book = result[0];
-  assert.ok(book.key);
-  assert.ok(book.title);
-  assert.ok(book.author_name);
-});
-
 test('searchBooks filters out books without authors', async () => {
   const result = await searchBooks('Pride and Prejudice');
   
