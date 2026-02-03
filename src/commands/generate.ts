@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import { select } from '@inquirer/prompts';
+import { confirm, select } from '@inquirer/prompts';
 import { renderMermaidAscii } from 'beautiful-mermaid';
 import { searchBooks } from '../api/openLibrary.js';
 import { analyzeCharacters } from '../api/deepseek.js';
@@ -35,19 +35,31 @@ export const generateCommand = new Command('generate')
 
       // Analyze characters with AI
       const apiKey = process.env.DEEPSEEK_API_KEY;
-      if (!apiKey) {
-        console.log(chalk.red('\n❌ Error: DEEPSEEK_API_KEY not found in environment variables'));
-        console.log(chalk.yellow('Please create a .env file with your DeepSeek API key'));
-        return;
-      }
 
-      const analyzeSpinner = ora('Analyzing character relationships with AI...').start();
-      const mermaidSyntax = await analyzeCharacters(
-        selectedBook.title,
-        selectedBook.author_name,
-        apiKey
-      );
-      analyzeSpinner.succeed('Analysis complete!');
+      let mermaidSyntax: string;
+      if (!apiKey) {
+        console.log(chalk.yellow("\n⚠️  You haven't provided DEEPSEEK_API_KEY."));
+        const shouldUseMock = await confirm({
+          message: 'Would you like me to show a sample result instead?',
+          default: true,
+        });
+
+        if (!shouldUseMock) return;
+
+        mermaidSyntax = `graph LR
+  A[Main Character] -->|Friend| B[Close Friend]
+  A -->|Family| C[Family Member]
+  A -->|Rival| D[Rival]
+  B -->|Knows| C`;
+      } else {
+        const analyzeSpinner = ora('Analyzing character relationships with AI...').start();
+        mermaidSyntax = await analyzeCharacters(
+          selectedBook.title,
+          selectedBook.author_name,
+          apiKey
+        );
+        analyzeSpinner.succeed('Analysis complete!');
+      }
 
       // Render ASCII diagram
       console.log(chalk.cyan('\n📊 Character Relationship Diagram:\n'));
