@@ -10,7 +10,7 @@
 
 This CLI tool uses AI to analyze books and generate character relationship diagrams in ASCII art directly from the command line.
 
-<https://github.com/user-attachments/assets/d2505946-348d-45f5-90cb-22c182f3b0ae>
+<https://github.com/user-attachments/assets/f24c2e2c-39a8-419d-bf8d-a1f49742b669>
 
 ## Features
 
