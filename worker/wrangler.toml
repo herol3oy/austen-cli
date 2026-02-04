@@ -2,5 +2,11 @@ name = "austen-cli-worker"
 main = "index.ts"
 compatibility_date = "2024-01-01"
 
+# KV namespace for storing ASCII diagrams
+[[kv_namespaces]]
+binding = "DIAGRAMS"
+id = "860c4e0283744b4ba09f586b824d02da"
+preview_id = "b0bd11afd3974d4597b44a58508f25a3"
+
 # Environment variables (secrets should be added via wrangler CLI)
 # wrangler secret put DEEPSEEK_API_KEY

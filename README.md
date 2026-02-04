@@ -17,6 +17,7 @@ This CLI tool uses AI to analyze books and generate character relationship diagr
 - 🔍 Search any book from Open Library
 - 🤖 AI-powered character relationship analysis via Cloudflare Worker
 - 🎨 ASCII art diagram rendering in terminal
+- 🔗 Shareable browser links for viewing and sharing diagrams
 
 
 ## Usage
@@ -119,6 +120,7 @@ The Old Man and the Sea by Ernest Hemingway (1952)
 2. **Select**: Lets you choose from the top 5 search results
 3. **Analyze**: Uses DeepSeek AI via Cloudflare Worker to analyze character relationships
 4. **Render**: Displays ASCII art diagram in your terminal
+5. **Share**: Generates a shareable link so you can view and share the diagram in a browser
 
 
 ## Tech Stack

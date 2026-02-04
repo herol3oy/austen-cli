@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { select } from '@inquirer/prompts';
 import { renderMermaidAscii } from 'beautiful-mermaid';
 import { searchBooks } from '../api/openLibrary.js';
-import { analyzeCharactersFromWorker } from '../api/worker.js';
+import { analyzeCharactersFromWorker, uploadAsciiToWorker } from '../api/worker.js';
 import { displayLogo } from '../utils/logo.js';
 
 // Cloudflare Worker URL for character analysis
@@ -38,9 +38,9 @@ export const generateCommand = new Command('generate')
 
       // Analyze characters with AI using Cloudflare Worker
       const analyzeSpinner = ora('Analyzing character relationships with AI...').start();
-      let mermaidSyntax: string;
+      let workerResponse;
       try {
-        mermaidSyntax = await analyzeCharactersFromWorker(
+        workerResponse = await analyzeCharactersFromWorker(
           selectedBook.title,
           selectedBook.author_name,
           WORKER_URL
@@ -53,12 +53,32 @@ export const generateCommand = new Command('generate')
 
       // Render ASCII diagram
       console.log(chalk.cyan('\n📊 Character Relationship Diagram:\n'));
+      let ascii = '';
       try {
-        const ascii = renderMermaidAscii(mermaidSyntax);
+        ascii = renderMermaidAscii(workerResponse.mermaidSyntax);
         console.log(ascii);
       } catch (error) {
         console.log(chalk.yellow('Could not render ASCII diagram, showing Mermaid syntax instead:\n'));
-        console.log(mermaidSyntax);
+        console.log(workerResponse.mermaidSyntax);
+      }
+
+      // Upload ASCII to worker and display shareable link
+      if (workerResponse.shareUrl && workerResponse.diagramId && ascii) {
+        const uploadSpinner = ora('Generating shareable link...').start();
+        try {
+          await uploadAsciiToWorker(
+            workerResponse.diagramId,
+            ascii,
+            selectedBook.title,
+            selectedBook.author_name,
+            WORKER_URL
+          );
+          uploadSpinner.succeed('Shareable link generated!');
+          console.log(chalk.green('\n🔗 Share this diagram:'));
+          console.log(chalk.bold.blue(`   ${workerResponse.shareUrl}\n`));
+        } catch (error) {
+          uploadSpinner.fail('Could not generate shareable link');
+        }
       }
       
     } catch (error) {
